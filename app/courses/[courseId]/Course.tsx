@@ -61,7 +61,7 @@ export const Course = ({ course, userId }: CourseProps) => {
         </Card>
       </div>
 
-      {course.isCanceled ? <p>You can't join this course.</p> : null}
+      {course.isCanceled ? <p>You can&apos;t join this course.</p> : null}
       {!course.isCanceled && !course.isEnrolled && isLogin ? (
         <div className="p-1">
           <form>
