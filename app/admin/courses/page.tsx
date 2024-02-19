@@ -31,7 +31,6 @@ export default async function CoursesPage() {
     },
   });
 
-  console.log('uc');
   return (
     <Layout>
       <LayoutHeader>

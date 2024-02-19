@@ -54,7 +54,6 @@ export default async function CoursePage({
     userPage: page,
   });
 
-  console.log({ course, page });
   return (
     <Layout>
       <LayoutHeader>
