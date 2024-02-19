@@ -1,4 +1,4 @@
-// Commande pour lancer la seed :
+// Commande pour lancer la seed : npx prisma db seed
 
 import { PrismaClient } from '@prisma/client';
 
