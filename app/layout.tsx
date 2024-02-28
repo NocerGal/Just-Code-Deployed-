@@ -34,7 +34,9 @@ export default function RootLayout({
           <Providers>
             <div className="relative flex min-h-screen flex-col">
               <Header />
-              <div className="flex-1">{children}</div>
+              <div className="flex h-full flex-1 items-center justify-center">
+                <div className="h-full">{children}</div>
+              </div>
               <Footer />
             </div>
             <TailwindIndicator />

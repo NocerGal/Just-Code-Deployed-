@@ -12,7 +12,7 @@ export function Header() {
           <Typography variant="h3" as={Link} href="/">
             {SiteConfig.title}
           </Typography>
-          <div className="flex flex-1 justify-center">
+          <div className="flex flex-1 justify-center gap-2">
             <Typography
               as={Link}
               variant="link"
