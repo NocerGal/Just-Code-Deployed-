@@ -26,10 +26,10 @@ import { Session } from 'next-auth';
 import { signOut } from 'next-auth/react';
 import Link from 'next/link';
 import React from 'react';
-type LoggedInButton = {
+type LoggedInButtonProps = {
   user: Session['user'];
 };
-export default function LoggedInButton(props: LoggedInButton) {
+export default function LoggedInButton(props: LoggedInButtonProps) {
   const mutation = useMutation({
     mutationFn: async () => signOut(),
   });
@@ -40,12 +40,13 @@ export default function LoggedInButton(props: LoggedInButton) {
         <DropdownMenuTrigger asChild>
           <Button variant="outline" size="sm">
             <Avatar className="mr-2 h-6 w-6">
-              <AvatarFallback>{props.user?.name?.[0]}</AvatarFallback>
-              {props.user.image && (
+              {props.user.image ? (
                 <AvatarImage
                   src={props.user.image}
                   alt={props.user.name ?? 'user picture'}
                 ></AvatarImage>
+              ) : (
+                <AvatarFallback>{props.user?.name?.[0]}</AvatarFallback>
               )}
             </Avatar>
             {props.user.name}
