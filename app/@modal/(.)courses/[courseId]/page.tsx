@@ -1,5 +1,5 @@
 import { getAuthSession } from '@/lib/auth';
-import { notFound } from 'next/navigation';
+import { notFound, useRouter } from 'next/navigation';
 import { getCourse } from '../../../courses/[courseId]/course.query';
 import { CourseDialog } from './CourseDialog';
 import { Course } from '../../../courses/[courseId]/Course';
@@ -17,8 +17,6 @@ export default async function CoursePage({
     courseId: params.courseId,
     userId: session?.user.id,
   });
-
-  // await new Promise((resolve) => setTimeout(resolve, 3000));
 
   if (!course) {
     notFound();

@@ -12,7 +12,7 @@ import { usePathname, useRouter } from 'next/navigation';
 
 export type CourseDialogProps = PropsWithChildren<{ course: CourseType }>;
 
-export const CourseDialog = (props: CourseDialogProps) => {
+export const CourseDialog = ({ course, children }: CourseDialogProps) => {
   const router = useRouter();
   const pathname = usePathname();
 
@@ -23,13 +23,14 @@ export const CourseDialog = (props: CourseDialogProps) => {
       open={iseCoursePage}
       onOpenChange={() => {
         router.back();
+        router.refresh();
       }}
     >
       <DialogContent className="max-h-screen max-w-3xl overflow-auto">
         <DialogHeader>
-          <DialogTitle>{props.course.name}</DialogTitle>
+          <DialogTitle>{course.name} est le titre ça? </DialogTitle>{' '}
         </DialogHeader>
-        {props.children}
+        {children}
       </DialogContent>
     </Dialog>
   );

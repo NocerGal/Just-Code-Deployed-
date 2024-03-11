@@ -1,17 +1,15 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-
-import { CourseType } from './course.query';
-
+import { CourseType, getCourse } from './course.query';
 import { Typography } from '@/components/ui/Typography';
 import { LessonItem } from './lessons/LessonItem';
 import { MarkDownProse } from '@/features/mdx/MarkDownProse';
-
 import { SubmitButton } from '@/components/form/SubmitButton';
 import { getRequiredAuthSession } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
+// import { useRouter } from 'next/router';
 
 export type CourseProps = {
   course: CourseType;
@@ -20,6 +18,8 @@ export type CourseProps = {
 
 export const Course = ({ course, userId }: CourseProps) => {
   const isLogin = Boolean(userId);
+
+  const router = useRouter();
 
   return (
     <div className="flex flex-col items-start gap-4">
@@ -105,7 +105,54 @@ export const Course = ({ course, userId }: CourseProps) => {
             </SubmitButton>
           </form>
         </div>
-      ) : null}
+      ) : (
+        <div className="p-1">
+          <form>
+            <SubmitButton
+              formAction={async () => {
+                'use server';
+
+                const session = await getRequiredAuthSession();
+
+                const isCourseOnUser = await prisma.courseOnUser.findFirst({
+                  where: {
+                    userId: session.user.id,
+                    courseId: course.id,
+                  },
+                  select: {
+                    courseId: true,
+                    course: true,
+                  },
+                });
+
+                const lessoOnUser = await prisma.course.findFirst({
+                  where: {
+                    id: isCourseOnUser?.courseId,
+                  },
+                  select: {
+                    lessons: true,
+                  },
+                });
+
+                const lesson = lessoOnUser?.lessons[0];
+
+                revalidatePath(`/course/${course.id}`);
+
+                if (!lesson) {
+                  console.log('no lesson');
+                  return;
+                }
+
+                console.log("t'es la? ", lesson.id);
+
+                redirect(`/courses/${course.id}/lessons/${lesson.id}`);
+              }}
+            >
+              See course
+            </SubmitButton>
+          </form>
+        </div>
+      )}
     </div>
   );
 };
