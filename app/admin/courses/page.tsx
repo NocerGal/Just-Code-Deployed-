@@ -6,6 +6,7 @@ import {
 } from '@/components/layout/layout';
 import { Typography } from '@/components/ui/Typography';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { buttonVariants } from '@/components/ui/button';
 
 import { Card, CardContent } from '@/components/ui/card';
 import {
@@ -18,8 +19,8 @@ import {
 } from '@/components/ui/table';
 import { getRequiredAuthSession } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
-
 import Link from 'next/link';
+
 import React from 'react';
 
 export default async function CoursesPage() {
@@ -33,8 +34,16 @@ export default async function CoursesPage() {
 
   return (
     <Layout>
-      <LayoutHeader>
+      <LayoutHeader className="flex flex-row justify-between">
         <LayoutTitle>Courses</LayoutTitle>
+        <Link
+          href={`/admin/courses/new`}
+          className={buttonVariants({
+            variant: 'outline',
+          })}
+        >
+          New course
+        </Link>
       </LayoutHeader>
       <LayoutContent>
         <Card>
