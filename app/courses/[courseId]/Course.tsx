@@ -8,8 +8,7 @@ import { SubmitButton } from '@/components/form/SubmitButton';
 import { getRequiredAuthSession } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
-import { redirect, useRouter } from 'next/navigation';
-// import { useRouter } from 'next/router';
+import { redirect } from 'next/navigation';
 
 export type CourseProps = {
   course: CourseType;
@@ -18,8 +17,6 @@ export type CourseProps = {
 
 export const Course = ({ course, userId }: CourseProps) => {
   const isLogin = Boolean(userId);
-
-  const router = useRouter();
 
   return (
     <div className="flex flex-col items-start gap-4">
@@ -93,12 +90,12 @@ export const Course = ({ course, userId }: CourseProps) => {
                 });
                 const lesson = courseOnUser.course.lessons[0];
 
-                revalidatePath(`/course/${course.id}`);
+                revalidatePath(`courses/${course.id}`);
                 if (!lesson) {
                   return;
                 }
 
-                redirect(`/courses/${course.id}/lessons/${lesson.id}`);
+                redirect(`${course.id}/lessons/${lesson.id}`);
               }}
             >
               Join
@@ -130,22 +127,24 @@ export const Course = ({ course, userId }: CourseProps) => {
                     id: isCourseOnUser?.courseId,
                   },
                   select: {
-                    lessons: true,
+                    lessons: {
+                      where: {
+                        state: 'PUBLIC',
+                      },
+                    },
                   },
                 });
 
+                console.log('lessonOnUser', lessoOnUser);
                 const lesson = lessoOnUser?.lessons[0];
 
-                revalidatePath(`/course/${course.id}`);
+                revalidatePath(`  courses/${course.id}`);
 
                 if (!lesson) {
-                  console.log('no lesson');
                   return;
                 }
 
-                console.log("t'es la? ", lesson.id);
-
-                redirect(`/courses/${course.id}/lessons/${lesson.id}`);
+                redirect(`${course.id}/lessons/${lesson.id}`);
               }}
             >
               See course
