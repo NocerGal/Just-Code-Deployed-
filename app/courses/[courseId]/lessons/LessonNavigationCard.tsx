@@ -42,7 +42,7 @@ export default function LessonNavigationCard({
         </CardHeader>
         <CardContent className="flex flex-col gap-2">
           {course.lessons.map((lesson) => (
-            <LessonItem lesson={lesson} />
+            <LessonItem key={lesson.id} lesson={lesson} />
           ))}
         </CardContent>
       </Card>
@@ -53,7 +53,6 @@ export default function LessonNavigationCard({
     <Sheet open={state === 'open'} onOpenChange={() => setState('close')}>
       <SheetContent side="left">
         <SheetHeader className="flex-row items-center gap-4 space-y-0">
-          <div></div>
           <SheetTitle>Lessons</SheetTitle>
 
           <Button onClick={() => setState('sticky')} size="sm" variant="ghost">
@@ -67,7 +66,7 @@ export default function LessonNavigationCard({
           }}
         >
           {course.lessons.map((lesson) => (
-            <LessonItem lesson={lesson} />
+            <LessonItem key={lesson.id} lesson={lesson} />
           ))}
         </ul>
       </SheetContent>
