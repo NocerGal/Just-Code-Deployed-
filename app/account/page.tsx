@@ -21,7 +21,7 @@ export default async function AccountPage() {
   }
 
   return (
-    <Card className="m-auto mt-4 max-w-lg">
+    <Card className="m-auto mt-4 w-full max-w-lg">
       <CardHeader className="flex flex-row gap-4 space-y-0">
         <Avatar>
           <AvatarFallback>{session.user.email?.[0]}</AvatarFallback>

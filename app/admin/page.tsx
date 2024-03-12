@@ -14,7 +14,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Typography } from '@/components/ui/Typography';
 import { BookCheck, Presentation, User2 } from 'lucide-react';
-import { NewUserCharts } from './newUserCharts';
 import { NewUserStats } from './NewUsersStats';
 
 export default async function CoursesPage() {

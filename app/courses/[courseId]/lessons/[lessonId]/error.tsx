@@ -22,7 +22,10 @@ export default function LessonError() {
         </LayoutTitle>
       </LayoutHeader>
       <LayoutContent>
-        <Link href={`/course/${params?.courseId}`} className={buttonVariants()}>
+        <Link
+          href={`/courses/${params?.courseId}`}
+          className={buttonVariants()}
+        >
           Join now
         </Link>
       </LayoutContent>

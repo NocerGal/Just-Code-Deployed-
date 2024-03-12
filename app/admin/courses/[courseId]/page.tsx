@@ -16,14 +16,10 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-
-import { getAuthSession, getRequiredAuthSession } from '@/lib/auth';
 import Link from 'next/link';
-
 import { PaginationButton } from '@/pagination/PaginationButton';
 import { Typography } from '@/components/ui/Typography';
 import { getAdminCourse } from './admin-course.query';
-import { Dropdown } from 'react-day-picker';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -34,6 +30,7 @@ import { Menu } from 'lucide-react';
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
 import { Badge } from '@/components/ui/badge';
+import { getRequiredAuthSession } from '@/lib/auth';
 
 export default async function CoursePage({
   params,

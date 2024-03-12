@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { PanelLeftClose, PanelLeftOpen } from 'lucide-react';
+import { PanelLeftOpen } from 'lucide-react';
 import {
   useLessonNavigationState,
   useLessonNavigationStore,

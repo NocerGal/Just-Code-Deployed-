@@ -3,6 +3,9 @@ import { notFound, useRouter } from 'next/navigation';
 import { getCourse } from '../../../courses/[courseId]/course.query';
 import { CourseDialog } from './CourseDialog';
 import { Course } from '../../../courses/[courseId]/Course';
+import { DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Suspense } from 'react';
+import { CoursePlaceholder } from '../../../courses/[courseId]/CoursePlaceHolder';
 
 export default async function CoursePage({
   params,
@@ -21,10 +24,43 @@ export default async function CoursePage({
   if (!course) {
     notFound();
   }
-
   return (
-    <CourseDialog course={course}>
-      <Course course={course} userId={session?.user.id} />
+    <CourseDialog>
+      <Suspense
+        fallback={
+          <>
+            <DialogHeader>
+              <DialogTitle>Loading...</DialogTitle>
+            </DialogHeader>
+            <CoursePlaceholder />
+          </>
+        }
+      >
+        <CourseWithData courseId={params.courseId} />
+      </Suspense>
     </CourseDialog>
   );
 }
+
+const CourseWithData = async ({ courseId }: { courseId: string }) => {
+  const session = await getAuthSession();
+  const course = await getCourse({
+    courseId: courseId,
+    userId: session?.user.id,
+  });
+
+  await new Promise((resolve) => setTimeout(resolve, 5000));
+
+  if (!course) {
+    notFound();
+  }
+
+  return (
+    <>
+      <DialogHeader>
+        <DialogTitle>{course.name}</DialogTitle>
+      </DialogHeader>
+      <Course course={course} userId={session?.user.id} />
+    </>
+  );
+};

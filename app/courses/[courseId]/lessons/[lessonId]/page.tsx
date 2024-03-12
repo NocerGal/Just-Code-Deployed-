@@ -6,8 +6,6 @@ import { notFound } from 'next/navigation';
 import { prisma } from '@/lib/prisma';
 import { SubmitButton } from '@/components/form/SubmitButton';
 import { handleLessonState } from './lesson.action';
-import { Button } from '@/components/ui/button';
-import { PanelLeftClose } from 'lucide-react';
 import { OperLessonNavigationButton } from './OpenLessonNavigationButton';
 
 export default async function LessonPage({
@@ -42,15 +40,6 @@ export default async function LessonPage({
   if (lesson?.state !== 'PUBLIC' && !isAuthorized?.users.length) {
     throw new Error('Unauthorized');
   }
-
-  // if (lesson.users.length === 0 && session?.user.id) {
-  //   await prisma.lessonOnUser.create({
-  //     data: {
-  //       userId: session?.user.id,
-  //       lessonId: lesson.id,
-  //     },
-  //   });
-  // }
 
   return (
     <Card className="flex-1">
