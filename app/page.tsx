@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { SparklesCore } from '@/ui/sparkles';
 import { getCourses } from './courses/course.query';
 import { CardBody, CardContainer, CardItem } from '@/ui/3d-card';
@@ -22,10 +23,10 @@ export default async function Home() {
       <h1 className="mb-6 text-center text-3xl font-bold text-white md:text-7xl lg:text-6xl">
         Just Code
       </h1>
-      <h2 className="mb-8 text-2xl font-bold text-center text-white md:text-2xl">
+      <h2 className="mb-8 text-center text-2xl font-bold text-white md:text-2xl">
         Find the best courses for the best results
       </h2>
-      <h2 className="mb-8 text-2xl font-bold text-center text-white md:text-2xl">
+      <h2 className="mb-8 text-center text-2xl font-bold text-white md:text-2xl">
         and create your own courses!
       </h2>
 
@@ -33,9 +34,9 @@ export default async function Home() {
         <h2 className="text-center text-2xl font-bold text-white md:text-2xl">
           Our best courses
         </h2>
-        <div className="flex flex-wrap justify-center gap-8  mt-16">
+        <div className="mt-16 flex flex-wrap justify-center  gap-8">
           {courses.slice(0, 3).map((course) => (
-            <Link key={course.id} href={`courses/${course.id}`}>
+            <Link key={course.id} href={`/courses/${course.id}`}>
               <CardContainer className="inter-var">
                 <CardBody className="group/card h-auto  w-auto rounded-xl border border-black/[0.1] bg-gray-50 p-6 dark:border-white/[0.2] dark:bg-black dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] sm:w-[25rem]  ">
                   <CardItem
@@ -55,7 +56,7 @@ export default async function Home() {
                     translateZ="100"
                     rotateX={20}
                     rotateZ={-10}
-                    className="w-full mt-4"
+                    className="mt-4 w-full"
                   >
                     <img
                       src={course.image}
@@ -90,11 +91,6 @@ export default async function Home() {
           ))}
         </div>
       </div>
-      {/* </div> */}
     </div>
-    // <div className="flex flex-col gap-4">
-    //   <h1 className="m-auto text-3xl">JustCode - Find the best courses</h1>
-    //   <h2>Post you courses and get new students!</h2>
-    // </div>
   );
 }
