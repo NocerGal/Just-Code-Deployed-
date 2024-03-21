@@ -38,7 +38,7 @@ export const getCourses = async (userId?: string) => {
 
 export type CoursesCard = Prisma.PromiseReturnType<typeof getCourses>[number];
 
-export const getCoursesWithPublishedLessons = async (userId?: string) => {
+export const getPublicCoursesWithPublishedLessons = async (userId?: string) => {
   const courses = await prisma.course.findMany({
     where: userId
       ? {
