@@ -1,6 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { CourseType, getCourse } from './course.query';
+import { CourseType } from './course.query';
 import { Typography } from '@/components/ui/Typography';
 import { LessonItem } from './lessons/LessonItem';
 import { MarkDownProse } from '@/features/mdx/MarkDownProse';
@@ -9,6 +9,7 @@ import { getRequiredAuthSession } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
+import { SignInButton } from '@/components/form/SignInButton';
 
 export type CourseProps = {
   course: CourseType;
@@ -59,7 +60,14 @@ export const Course = ({ course, userId }: CourseProps) => {
       </div>
 
       {course.isCanceled ? <p>You can&apos;t join this course.</p> : null}
-      {!course.isCanceled && !course.isEnrolled && isLogin ? (
+
+      {!isLogin && !course.isCanceled ? (
+        <form>
+          <SignInButton callbackUrl={`/courses/${course.id}`}>
+            Join us
+          </SignInButton>
+        </form>
+      ) : !course.isCanceled && !course.isEnrolled && isLogin ? (
         <div className="p-1">
           <form>
             <SubmitButton
