@@ -77,9 +77,24 @@ export const getCourse = async ({
     };
   });
 
+  const courseOnUSer = await prisma.courseOnUser.findMany({
+    where: {
+      userId: userId,
+    },
+    select: {
+      userId: true,
+      id: true,
+    },
+  });
+
   return {
     ...course,
-    isEnrolled: course.users.length > 0 && !course.users[0].canceledAt,
+    isEnrolled: course.users.some((courseUser) => {
+      return courseOnUSer.some((user) => {
+        return user.id === courseUser.id;
+      });
+    }),
+
     isCanceled: course.users.length > 0 && !!course.users[0].canceledAt,
     lessons,
   };

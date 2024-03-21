@@ -2,7 +2,7 @@
 import { SparklesCore } from '@/ui/sparkles';
 import {
   getCourses,
-  getCoursesWithPublishedLessons,
+  getPublicCoursesWithPublishedLessons,
 } from './courses/course.query';
 import { CardBody, CardContainer, CardItem } from '@/ui/3d-card';
 import Link from 'next/link';
@@ -10,9 +10,8 @@ import Link from 'next/link';
 export default async function Home() {
   const courses = await getCourses();
 
-  const coursesWithlessons = await getCoursesWithPublishedLessons();
+  const coursesWithlessons = await getPublicCoursesWithPublishedLessons();
 
-  console.log('ok', coursesWithlessons.slice(0, 3));
   return (
     <div className="relative flex h-full w-full flex-col justify-center  overflow-scroll rounded-md ">
       <SparklesCore

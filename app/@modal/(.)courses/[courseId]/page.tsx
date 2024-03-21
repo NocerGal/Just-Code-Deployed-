@@ -16,6 +16,8 @@ export default async function CoursePage({
 }) {
   const session = await getAuthSession();
 
+  const userId = session?.user.id;
+
   const course = await getCourse({
     courseId: params.courseId,
     userId: session?.user.id,
@@ -24,6 +26,7 @@ export default async function CoursePage({
   if (!course) {
     notFound();
   }
+
   return (
     <CourseDialog>
       <Suspense
@@ -36,15 +39,22 @@ export default async function CoursePage({
           </>
         }
       >
-        <CourseWithData courseId={params.courseId} />
+        <CourseWithData courseId={params.courseId} userId={userId} />
       </Suspense>
     </CourseDialog>
   );
 }
 
-const CourseWithData = async ({ courseId }: { courseId: string }) => {
+const CourseWithData = async ({
+  courseId,
+  userId,
+}: {
+  courseId: string;
+  userId?: string;
+}) => {
   const course = await getCourse({
     courseId: courseId,
+    userId: userId,
   });
 
   if (!course) {
@@ -56,7 +66,7 @@ const CourseWithData = async ({ courseId }: { courseId: string }) => {
       <DialogHeader>
         <DialogTitle>{course.name}</DialogTitle>
       </DialogHeader>
-      <Course course={course} />
+      <Course course={course} userId={userId} />
     </>
   );
 };
