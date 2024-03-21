@@ -1,5 +1,5 @@
 import { getAuthSession } from '@/lib/auth';
-import { notFound, useRouter } from 'next/navigation';
+import { notFound } from 'next/navigation';
 import { getCourse } from '../../../courses/[courseId]/course.query';
 import { CourseDialog } from './CourseDialog';
 import { Course } from '../../../courses/[courseId]/Course';
@@ -43,10 +43,8 @@ export default async function CoursePage({
 }
 
 const CourseWithData = async ({ courseId }: { courseId: string }) => {
-  const session = await getAuthSession();
   const course = await getCourse({
     courseId: courseId,
-    userId: session?.user.id,
   });
 
   if (!course) {
@@ -58,7 +56,7 @@ const CourseWithData = async ({ courseId }: { courseId: string }) => {
       <DialogHeader>
         <DialogTitle>{course.name}</DialogTitle>
       </DialogHeader>
-      <Course course={course} userId={session?.user.id} />
+      <Course course={course} />
     </>
   );
 };
