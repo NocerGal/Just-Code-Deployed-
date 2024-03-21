@@ -49,8 +49,6 @@ const CourseWithData = async ({ courseId }: { courseId: string }) => {
     userId: session?.user.id,
   });
 
-  await new Promise((resolve) => setTimeout(resolve, 5000));
-
   if (!course) {
     notFound();
   }
