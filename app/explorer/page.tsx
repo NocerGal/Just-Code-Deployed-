@@ -5,13 +5,16 @@ import {
   LayoutTitle,
 } from '@/components/layout/layout';
 
-import { getCourses } from '../courses/course.query';
+import {
+  getCourses,
+  getPublicCoursesWithPublishedLessons,
+} from '../courses/course.query';
 import { CourseCard } from '../courses/CourseCard';
 
 export type pageProps = {};
 
 export default async function ExplorerPage() {
-  const courses = await getCourses();
+  const courses = await getPublicCoursesWithPublishedLessons();
 
   return (
     <Layout>
