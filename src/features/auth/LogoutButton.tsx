@@ -18,7 +18,7 @@ export const LogoutButton = () => {
       onClick={() => mutation.mutate()}
     >
       {mutation.isPending ? (
-        <Loader className="mr-2" size={12} />
+        <Loader className="mr-2 animate-spin" size={12} />
       ) : (
         <LogOut className="mr-2" size={12} />
       )}
