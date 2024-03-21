@@ -1,15 +1,20 @@
 /* eslint-disable @next/next/no-img-element */
 import { SparklesCore } from '@/ui/sparkles';
-import { getCourses } from './courses/course.query';
+import {
+  getCourses,
+  getCoursesWithPublishedLessons,
+} from './courses/course.query';
 import { CardBody, CardContainer, CardItem } from '@/ui/3d-card';
 import Link from 'next/link';
 
 export default async function Home() {
   const courses = await getCourses();
 
+  const coursesWithlessons = await getCoursesWithPublishedLessons();
+
+  console.log('ok', coursesWithlessons.slice(0, 3));
   return (
     <div className="relative flex h-full w-full flex-col justify-center  overflow-scroll rounded-md ">
-      {/* <div className="absolute w-full h-full"> */}
       <SparklesCore
         id="tsparticlesfullpage"
         background="transparent"
@@ -35,7 +40,7 @@ export default async function Home() {
           Our best courses
         </h2>
         <div className="mt-16 flex flex-wrap justify-center  gap-8">
-          {courses.slice(0, 3).map((course) => (
+          {coursesWithlessons.slice(0, 3).map((course) => (
             <Link key={course.id} href={`/courses/${course.id}`}>
               <CardContainer className="inter-var">
                 <CardBody className="group/card h-auto  w-auto rounded-xl border border-black/[0.1] bg-gray-50 p-6 dark:border-white/[0.2] dark:bg-black dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] sm:w-[25rem]  ">

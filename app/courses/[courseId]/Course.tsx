@@ -135,10 +135,9 @@ export const Course = ({ course, userId }: CourseProps) => {
                   },
                 });
 
-                console.log('lessonOnUser', lessoOnUser);
                 const lesson = lessoOnUser?.lessons[0];
 
-                revalidatePath(`  courses/${course.id}`);
+                revalidatePath(`courses/${course.id}`);
 
                 if (!lesson) {
                   return;
